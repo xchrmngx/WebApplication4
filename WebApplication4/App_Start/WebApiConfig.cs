@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace WebApplication4
 {
@@ -9,9 +10,10 @@ namespace WebApplication4
     {
         public static void Register(HttpConfiguration config)
         {
-            // Конфигурация и службы Web API
+            var cors = new EnableCorsAttribute("*", "*", "*"); // Разрешаем запросы с любых источников
+            config.EnableCors(cors);
 
-            // Маршруты Web API
+            // Другие настройки маршрутизации
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
@@ -22,3 +24,4 @@ namespace WebApplication4
         }
     }
 }
+
