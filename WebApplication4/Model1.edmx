@@ -1,0 +1,329 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище MedicalDBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Doctors">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="OfficeId" Type="int" />
+          <Property Name="SpecializationId" Type="int" />
+          <Property Name="UParticipantId" Type="int" />
+        </EntityType>
+        <EntityType Name="Offices">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Number" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Patients">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="MiddleName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Address" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="BirthDate" Type="date" Nullable="false" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="UParticipantId" Type="int" />
+        </EntityType>
+        <EntityType Name="Specializations">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UParticipants">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Number" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Doctors__OfficeI__403A8C7D">
+          <End Role="Offices" Type="Self.Offices" Multiplicity="0..1" />
+          <End Role="Doctors" Type="Self.Doctors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Offices">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Doctors">
+              <PropertyRef Name="OfficeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Doctors__Special__412EB0B6">
+          <End Role="Specializations" Type="Self.Specializations" Multiplicity="0..1" />
+          <End Role="Doctors" Type="Self.Doctors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Specializations">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Doctors">
+              <PropertyRef Name="SpecializationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Doctors__UPartic__4222D4EF">
+          <End Role="UParticipants" Type="Self.UParticipants" Multiplicity="0..1" />
+          <End Role="Doctors" Type="Self.Doctors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UParticipants">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Doctors">
+              <PropertyRef Name="UParticipantId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Patients__UParti__3D5E1FD2">
+          <End Role="UParticipants" Type="Self.UParticipants" Multiplicity="0..1" />
+          <End Role="Patients" Type="Self.Patients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UParticipants">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Patients">
+              <PropertyRef Name="UParticipantId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище MedicalDBModelContainer">
+          <EntitySet Name="Doctors" EntityType="Self.Doctors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Offices" EntityType="Self.Offices" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Patients" EntityType="Self.Patients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Specializations" EntityType="Self.Specializations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UParticipants" EntityType="Self.UParticipants" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Doctors__OfficeI__403A8C7D" Association="Self.FK__Doctors__OfficeI__403A8C7D">
+            <End Role="Offices" EntitySet="Offices" />
+            <End Role="Doctors" EntitySet="Doctors" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Doctors__Special__412EB0B6" Association="Self.FK__Doctors__Special__412EB0B6">
+            <End Role="Specializations" EntitySet="Specializations" />
+            <End Role="Doctors" EntitySet="Doctors" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Doctors__UPartic__4222D4EF" Association="Self.FK__Doctors__UPartic__4222D4EF">
+            <End Role="UParticipants" EntitySet="UParticipants" />
+            <End Role="Doctors" EntitySet="Doctors" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Patients__UParti__3D5E1FD2" Association="Self.FK__Patients__UParti__3D5E1FD2">
+            <End Role="UParticipants" EntitySet="UParticipants" />
+            <End Role="Patients" EntitySet="Patients" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MedicalDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Doctors">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="OfficeId" Type="Int32" />
+          <Property Name="SpecializationId" Type="Int32" />
+          <Property Name="UParticipantId" Type="Int32" />
+          <NavigationProperty Name="Offices" Relationship="Self.FK__Doctors__OfficeI__403A8C7D" FromRole="Doctors" ToRole="Offices" />
+          <NavigationProperty Name="Specializations" Relationship="Self.FK__Doctors__Special__412EB0B6" FromRole="Doctors" ToRole="Specializations" />
+          <NavigationProperty Name="UParticipants" Relationship="Self.FK__Doctors__UPartic__4222D4EF" FromRole="Doctors" ToRole="UParticipants" />
+        </EntityType>
+        <EntityType Name="Offices">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Number" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Doctors" Relationship="Self.FK__Doctors__OfficeI__403A8C7D" FromRole="Offices" ToRole="Doctors" />
+        </EntityType>
+        <EntityType Name="Patients">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MiddleName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UParticipantId" Type="Int32" />
+          <NavigationProperty Name="UParticipants" Relationship="Self.FK__Patients__UParti__3D5E1FD2" FromRole="Patients" ToRole="UParticipants" />
+        </EntityType>
+        <EntityType Name="Specializations">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Doctors" Relationship="Self.FK__Doctors__Special__412EB0B6" FromRole="Specializations" ToRole="Doctors" />
+        </EntityType>
+        <EntityType Name="UParticipants">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Number" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Doctors" Relationship="Self.FK__Doctors__UPartic__4222D4EF" FromRole="UParticipants" ToRole="Doctors" />
+          <NavigationProperty Name="Patients" Relationship="Self.FK__Patients__UParti__3D5E1FD2" FromRole="UParticipants" ToRole="Patients" />
+        </EntityType>
+        <Association Name="FK__Doctors__OfficeI__403A8C7D">
+          <End Role="Offices" Type="Self.Offices" Multiplicity="0..1" />
+          <End Role="Doctors" Type="Self.Doctors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Offices">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Doctors">
+              <PropertyRef Name="OfficeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Doctors__Special__412EB0B6">
+          <End Role="Specializations" Type="Self.Specializations" Multiplicity="0..1" />
+          <End Role="Doctors" Type="Self.Doctors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Specializations">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Doctors">
+              <PropertyRef Name="SpecializationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Doctors__UPartic__4222D4EF">
+          <End Role="UParticipants" Type="Self.UParticipants" Multiplicity="0..1" />
+          <End Role="Doctors" Type="Self.Doctors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UParticipants">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Doctors">
+              <PropertyRef Name="UParticipantId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Patients__UParti__3D5E1FD2">
+          <End Role="UParticipants" Type="Self.UParticipants" Multiplicity="0..1" />
+          <End Role="Patients" Type="Self.Patients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UParticipants">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Patients">
+              <PropertyRef Name="UParticipantId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MedicalDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Doctors" EntityType="Self.Doctors" />
+          <EntitySet Name="Offices" EntityType="Self.Offices" />
+          <EntitySet Name="Patients" EntityType="Self.Patients" />
+          <EntitySet Name="Specializations" EntityType="Self.Specializations" />
+          <EntitySet Name="UParticipants" EntityType="Self.UParticipants" />
+          <AssociationSet Name="FK__Doctors__OfficeI__403A8C7D" Association="Self.FK__Doctors__OfficeI__403A8C7D">
+            <End Role="Offices" EntitySet="Offices" />
+            <End Role="Doctors" EntitySet="Doctors" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Doctors__Special__412EB0B6" Association="Self.FK__Doctors__Special__412EB0B6">
+            <End Role="Specializations" EntitySet="Specializations" />
+            <End Role="Doctors" EntitySet="Doctors" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Doctors__UPartic__4222D4EF" Association="Self.FK__Doctors__UPartic__4222D4EF">
+            <End Role="UParticipants" EntitySet="UParticipants" />
+            <End Role="Doctors" EntitySet="Doctors" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Patients__UParti__3D5E1FD2" Association="Self.FK__Patients__UParti__3D5E1FD2">
+            <End Role="UParticipants" EntitySet="UParticipants" />
+            <End Role="Patients" EntitySet="Patients" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище MedicalDBModelContainer" CdmEntityContainer="MedicalDBEntities">
+          <EntitySetMapping Name="Doctors">
+            <EntityTypeMapping TypeName="MedicalDBModel.Doctors">
+              <MappingFragment StoreEntitySet="Doctors">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="OfficeId" ColumnName="OfficeId" />
+                <ScalarProperty Name="SpecializationId" ColumnName="SpecializationId" />
+                <ScalarProperty Name="UParticipantId" ColumnName="UParticipantId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Offices">
+            <EntityTypeMapping TypeName="MedicalDBModel.Offices">
+              <MappingFragment StoreEntitySet="Offices">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Patients">
+            <EntityTypeMapping TypeName="MedicalDBModel.Patients">
+              <MappingFragment StoreEntitySet="Patients">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="UParticipantId" ColumnName="UParticipantId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Specializations">
+            <EntityTypeMapping TypeName="MedicalDBModel.Specializations">
+              <MappingFragment StoreEntitySet="Specializations">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UParticipants">
+            <EntityTypeMapping TypeName="MedicalDBModel.UParticipants">
+              <MappingFragment StoreEntitySet="UParticipants">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
